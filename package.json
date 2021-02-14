@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron src/main.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RGNGS/launcher.git"
-  },
+  }, 
   "author": "",
   "license": "ISC",
   "bugs": {
