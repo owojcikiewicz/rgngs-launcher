@@ -15,8 +15,8 @@ function createWindow(): void {
         }
     });
 
-    window.loadFile("index.html")
-    window.removeMenu()
+    window.loadFile("index.html");
+    window.removeMenu();
 };
 
 app.once("ready", createWindow);
