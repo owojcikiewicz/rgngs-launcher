@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+/* THEME */
+:root {
+    --primary: rgb(175, 175, 175 );
+    --background: rgb(255,255,255);
+    --secondary: rgb( 200, 200, 200);
+    --accent: rgba(6, 82, 221,75%);
+    --text: rgb(75,75,75);
+  }
+  
+
+/* MAIN CODE */
+*{
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    background-color: var(--background);
+}
+
+.button-main-container{
+    position:absolute;
+    width: 100%;
+    height: auto;
+    bottom: 0;
+    background-color: var(--primary);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.button-main-container button{
+    margin: 5px 5px 5px 5px;
+    padding: 0px 5px;
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--secondary);
+    color: var(--text);
+    font-size: 2rem;
+    transition: 0.2s;    
+    text-transform: uppercase;
+}
+
+.button-main-container button:hover{
+    background-color: var(--accent);
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* IMAGE */
+
+.img-container{
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    display: flex;
+    top: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-container img {
+    width: 256px;
+    height: 128px;
+}
