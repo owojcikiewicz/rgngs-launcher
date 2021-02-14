@@ -1,0 +1,22 @@
+{
+  "name": "launcher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RGNGS/launcher.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RGNGS/launcher/issues"
+  },
+  "homepage": "https://github.com/RGNGS/launcher#readme",
+  "devDependencies": {
+    "electron": "^11.2.3"
+  }
+}
