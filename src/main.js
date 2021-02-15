@@ -1,5 +1,6 @@
-const {app, ipcMain, BrowserWindow} = require("electron");
+const {app, ipcMain, dialog, BrowserWindow} = require("electron");
 const path = require("path");
+const fs = require("fs"); 
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -22,8 +23,71 @@ function createWindow() {
 
 app.whenReady().then(_ => {
     createWindow();
+
     ipcMain.on("asynchronous-message", (event, arg) => {
-        console.log(arg);
+        switch (arg) {
+            case "download-css": 
+                dialog.showOpenDialog({properties: ["openDirectory"]})
+                    .then(response => {
+                        if (response.canceled) {
+                            // @TODO: NOTIFY - CANCELED.
+                            return;
+                        };
+
+                        let selectedPath = response.filePaths[0]; 
+                        let targetPath = path.join(selectedPath, "garrysmod");
+                        if (!fs.existsSync(targetPath)) {
+                            // @TODO: NOTIFY - PATH INVALID.
+                            return;
+                        };
+
+                        // @TODO: DOWNLOAD CSS CONTENT.
+                    })
+                    .catch(console.error);
+
+            case "download-addons": 
+                dialog.showOpenDialog({properties: ["openDirectory"]})
+                    .then(response => {
+                        if (response.canceled) {
+                            // @TODO: NOTIFY - CANCELED.
+                            return;
+                        };
+
+                        let selectedPath = response.filePaths[0]; 
+                        let targetPath = path.join(selectedPath, "garrysmod");
+                        if (!fs.existsSync(targetPath)) {
+                            // @TODO: NOTIFY - PATH INVALID.
+                            return;
+                        };
+
+                        // @TODO: DOWNLOAD ADDONS.
+                    })
+                    .catch(console.error);
+
+            case "update-addons": 
+                dialog.showOpenDialog({properties: ["openDirectory"]})
+                    .then(response => {
+                        if (response.canceled) {
+                            // @TODO: NOTIFY - CANCELED.
+                            return;
+                        };
+
+                        let selectedPath = response.filePaths[0]; 
+                        let targetPath = path.join(selectedPath, "garrysmod");
+                        if (!fs.existsSync(targetPath)) {
+                            // @TODO: NOTIFY - PATH INVALID.
+                            return;
+                        };
+
+                        // @TODO: UPDATE ADDONS.
+                    })
+                    .catch(console.error);
+
+            case "join-server": 
+                // @TODO: CONNECT TO SERVER.
+        };
+
+
         event.reply("asynchronous-reply", arg);
     });
 });
