@@ -1,7 +1,9 @@
 const {ipcRenderer} = require("electron");
+const cssButton = document.getElementsByClassName("download-css");
 const downloadButton = document.getElementsByClassName("download-addons");
 const updateButton = document.getElementsByClassName("update-addons");
 const joinButton = document.getElementsByClassName("join-server");
+
 const lol = document.getElementsByClassName("join-server").textContent;
 
 ipcRenderer.on("asynchronous-reply", (event, arg) => {
@@ -9,6 +11,10 @@ ipcRenderer.on("asynchronous-reply", (event, arg) => {
     console.log(arg);
 
     joinButton[0].textContent = arg;
+});
+
+cssButton[0].addEventListener("click", async () => {
+    ipcRenderer.send("asynchronous-message", "download-css");
 });
 
 downloadButton[0].addEventListener("click", async () => {
