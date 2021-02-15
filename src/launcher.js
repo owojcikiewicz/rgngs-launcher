@@ -14,17 +14,25 @@ ipcRenderer.on("asynchronous-reply", (event, arg) => {
 });
 
 cssButton[0].addEventListener("click", async () => {
+    macOSNotif({
+        title: "Oskar",
+        subtitle: "ssie",
+        btn1Text:"Ok!",
+        btn2Text:null
+    })
     ipcRenderer.send("asynchronous-message", "download-css");
 });
 
 downloadButton[0].addEventListener("click", async () => {
     ipcRenderer.send("asynchronous-message", "download-addons");
+    
 });
 
 updateButton[0].addEventListener("click", async () => {
-    ipcRenderer.send("asynchronous-message", "update-addons");
+   ipcRenderer.send("asynchronous-message", "update-addons");
 });
 
 joinButton[0].addEventListener("click", async () => {
-    ipcRenderer.send("asynchronous-message", "join-server");
+   ipcRenderer.send("asynchronous-message", "join-server");
 });
+

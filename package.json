@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RGNGS/launcher.git"
-  }, 
+  },
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -18,5 +18,6 @@
   "homepage": "https://github.com/RGNGS/launcher#readme",
   "devDependencies": {
     "electron": "^11.2.3"
-  }
+  },
+  "dependencies": {}
 }

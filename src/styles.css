@@ -71,3 +71,24 @@ body{
     width: 256px;
     height: 128px;
 }
+
+/* NOTIFY 
+#notify{
+    background-color: var(--secondary);
+    color: var(--text);
+    width: 250px;
+    height: 70px;
+    border-radius: 12px;
+    animation-name: notifyshow;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes notifyshow{
+    from{
+        transform: translateX(-250px);
+    }
+    to{
+        transform: translateX(10px);
+    }
+}*/
