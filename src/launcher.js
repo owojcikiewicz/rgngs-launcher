@@ -7,25 +7,25 @@ const joinButton = document.getElementsByClassName("join-server");
 const lol = document.getElementsByClassName("join-server").textContent;
 
 ipcRenderer.on("asynchronous-reply", (event, arg) => {
-    console.log(event);
     console.log(arg);
-
-    joinButton[0].textContent = arg;
 });
 
-cssButton[0].addEventListener("click", async () => {
+ipcRenderer.on("notify", (event, message) => {
+    let args = message.split(":");
     macOSNotif({
-        title: "Oskar",
-        subtitle: "ssie",
-        btn1Text:"Ok!",
-        btn2Text:null
-    })
+        title: args[0],
+        subtitle: args[1],
+        btn1Text: "OK",
+        btn2Text: null
+    });
+});
+
+cssButton[0].addEventListener("click", async () => {    
     ipcRenderer.send("asynchronous-message", "download-css");
 });
 
 downloadButton[0].addEventListener("click", async () => {
     ipcRenderer.send("asynchronous-message", "download-addons");
-    
 });
 
 updateButton[0].addEventListener("click", async () => {
