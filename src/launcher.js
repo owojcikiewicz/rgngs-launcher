@@ -3,8 +3,13 @@ const cssButton = document.getElementsByClassName("download-css");
 const downloadButton = document.getElementsByClassName("download-addons");
 const updateButton = document.getElementsByClassName("update-addons");
 const joinButton = document.getElementsByClassName("join-server");
+const customTitlebar = require('custom-electron-titlebar');
 
-const lol = document.getElementsByClassName("join-server").textContent;
+
+new customTitlebar.Titlebar({
+	backgroundColor: customTitlebar.Color.fromHex('#d63031')
+});
+
 
 ipcRenderer.on("asynchronous-reply", (event, arg) => {
     console.log(arg);
@@ -36,15 +41,3 @@ joinButton[0].addEventListener("click", async () => {
    ipcRenderer.send("asynchronous-message", "join-server");
 });
 
-
-// PROGRESS BAR 
-
-function ProgressBarStart(){
-    const progressBar = document.getElementsByClassName('progress-bar')[0]
-
-setInterval(() => {
-    const computedStyle = getComputedStyle(progressBar)
-    const width = parseFloat(computedStyle.getPropertyValue('--width')) || 0
-
-    progressBar.style.setProperty('--width', width + .1)}, 5)
-}

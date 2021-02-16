@@ -19,5 +19,7 @@
   "devDependencies": {
     "electron": "^11.2.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "custom-electron-titlebar": "^3.2.6"
+  }
 }

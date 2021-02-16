@@ -2,11 +2,12 @@
 
 /* THEME */
 :root {
-    --primary: rgb(175, 175, 175 );
-    --background: rgb(255,255,255);
-    --secondary: rgb( 200, 200, 200);
-    --accent: rgba(6, 82, 221,75%);
-    --text: rgb(75,75,75);
+    --primary: rgb(48, 49, 54);
+    --background: rgb(27,27,29);
+    --secondary: rgb(36, 37, 41);
+    --accent: rgba(52, 152, 219,70%);
+    --text: rgb(255,255,255);
+    --text2: rgb(200,200,200)
   }
   
 
@@ -17,17 +18,24 @@
 }
 
 body{
+    display: flex;
     margin: 0;
     padding: 0;
     background-color: var(--background);
 }
 
+.launcher-container{
+    position: relative;
+    width: 35%;
+    height: 100vh;
+}
+
 .button-main-container{
     position:absolute;
     width: 100%;
-    height: auto;
+    height: 32%;
     bottom: 0;
-    background-color: var(--primary);
+    background-color: var(--background);
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -36,12 +44,12 @@ body{
 }
 
 .button-main-container button{
-    margin: 5px 5px 5px 5px;
-    padding: 0px 5px;
+    margin: 0px 8px 8px 8px;
+    padding: 3px 10px;
     outline: none;
     border: none;
     border-radius: 6px;
-    background-color: var(--secondary);
+    background-color: var(--primary);
     color: var(--text);
     font-size: 2rem;
     transition: 0.2s;    
@@ -59,42 +67,57 @@ body{
 
 .img-container{
     position: absolute;
-    width: 100%;
-    height: 70%;
+    width: 95%;
+    height: 65%;
+    top: 1.5%;
+    left: 2.5%;
     display: flex;
-    top: 0;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
 }
 
 .img-container img {
-    width: 256px;
-    height: 128px;
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;  
 }
 
-/* PROGRESS BAR */ 
 
-.progress-bar {
-	position: relative;
-	width: 300px;
-	height: 3em;
-	background-color:rgb(175, 175, 175);
-	border-radius: 1.5em;
-	color: white;
+
+/* MOTD */
+
+.motd-main{
+    position: relative;
+    display: flex;
+    width: 64%;
+    height: 99vh;
+    top: 0.5vh;
+    left: 0.5%;
+    background-color:var(--background);
+    color: var(--text2);
 }
 
-.progress-bar::before {
-	content: attr(data-label);
-	display: flex;
-	align-items: center;
-	position: absolute;
-	left: .5em;
-	top: .5em;
-	bottom: .5em;
-	width: calc(var(--width, 0) * 1%);
-	min-width: 2rem;
-	max-width: calc(100% - 1em);
-	background-color: var(--accent);
-	border-radius: 1em;
-	padding: 1em;
+.motd-title{
+    position: absolute;
+    width: 100%;
+    color: var(--text);
+    font-size: 3rem;
+    height: 10%;
+    background-color: var(--primary);
+    text-align: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
+
+.motd-text-container{
+    position: absolute;
+    width: 100%;
+    top: 10%;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    font-size: 1.3rem;
+    padding: 20px 20px;
+    height: 90%;
+    background-color: var(--secondary);
+}
+

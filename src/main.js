@@ -4,19 +4,20 @@ const fs = require("fs");
 
 function createWindow() {
     const win = new BrowserWindow({
-        width: 500,
+        width: 1250,
         height: 650,
-        minWidth: 500,
+        minWidth: 1250,
         minHeight: 650,
-        maxHeight: 500,
-        maxWidth: 650,
-        icon: path.join(__dirname, "../assets", "icon.png"),
+        maxWidth: 1250,
+        maxHeight: 650,
+        titleBarStyle: "hidden",
+       // icon: path.join(__dirname, "../assets", "icon.png"),
         webPreferences: {
             contextIsolation: false,
             nodeIntegration: true
         },
     });
-
+    
     win.loadFile("index.html");
     win.removeMenu();
 
