@@ -3,13 +3,6 @@ const cssButton = document.getElementsByClassName("download-css");
 const downloadButton = document.getElementsByClassName("download-addons");
 const updateButton = document.getElementsByClassName("update-addons");
 const joinButton = document.getElementsByClassName("join-server");
-const customTitlebar = require('custom-electron-titlebar');
-
-
-new customTitlebar.Titlebar({
-	backgroundColor: customTitlebar.Color.fromHex('#d63031')
-});
-
 
 ipcRenderer.on("asynchronous-reply", (event, arg) => {
     console.log(arg);

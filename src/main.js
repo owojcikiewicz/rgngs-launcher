@@ -10,8 +10,7 @@ function createWindow() {
         minHeight: 650,
         maxWidth: 1250,
         maxHeight: 650,
-        titleBarStyle: "hidden",
-       // icon: path.join(__dirname, "../assets", "icon.png"),
+        icon: path.join(__dirname, "../assets", "icon.png"),
         webPreferences: {
             contextIsolation: false,
             nodeIntegration: true
@@ -110,5 +109,3 @@ app.on("activate", () => {
         createWindow();
     };
 });
-
-
