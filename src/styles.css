@@ -11,7 +11,7 @@
   
 
 /* MAIN CODE */
-*{
+*, *::before, *::after{
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
 }
@@ -72,23 +72,29 @@ body{
     height: 128px;
 }
 
-/* NOTIFY 
-#notify{
-    background-color: var(--secondary);
-    color: var(--text);
-    width: 250px;
-    height: 70px;
-    border-radius: 12px;
-    animation-name: notifyshow;
-    animation-duration: 1s;
-    animation-timing-function: ease-in-out;
+/* PROGRESS BAR */ 
+
+.progress-bar {
+	position: relative;
+	width: 300px;
+	height: 3em;
+	background-color:rgb(175, 175, 175);
+	border-radius: 1.5em;
+	color: white;
 }
 
-@keyframes notifyshow{
-    from{
-        transform: translateX(-250px);
-    }
-    to{
-        transform: translateX(10px);
-    }
-}*/
+.progress-bar::before {
+	content: attr(data-label);
+	display: flex;
+	align-items: center;
+	position: absolute;
+	left: .5em;
+	top: .5em;
+	bottom: .5em;
+	width: calc(var(--width, 0) * 1%);
+	min-width: 2rem;
+	max-width: calc(100% - 1em);
+	background-color: var(--accent);
+	border-radius: 1em;
+	padding: 1em;
+}

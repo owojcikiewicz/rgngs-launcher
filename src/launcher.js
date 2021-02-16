@@ -21,7 +21,7 @@ ipcRenderer.on("notify", (event, message) => {
 });
 
 cssButton[0].addEventListener("click", async () => {    
-    ipcRenderer.send("asynchronous-message", "download-css");
+   ipcRenderer.send("asynchronous-message", "download-css");
 });
 
 downloadButton[0].addEventListener("click", async () => {
@@ -36,3 +36,15 @@ joinButton[0].addEventListener("click", async () => {
    ipcRenderer.send("asynchronous-message", "join-server");
 });
 
+
+// PROGRESS BAR 
+
+function ProgressBarStart(){
+    const progressBar = document.getElementsByClassName('progress-bar')[0]
+
+setInterval(() => {
+    const computedStyle = getComputedStyle(progressBar)
+    const width = parseFloat(computedStyle.getPropertyValue('--width')) || 0
+
+    progressBar.style.setProperty('--width', width + .1)}, 5)
+}
