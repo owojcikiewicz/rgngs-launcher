@@ -1,6 +1,9 @@
 const {app, ipcMain, dialog, BrowserWindow} = require("electron");
 const path = require("path");
 const fs = require("fs");
+const axios = require("axios").default;
+
+const MOTD_URL = "https://pastebin.com/raw/AJgTaRdq";
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -27,14 +30,21 @@ function setMotd(wind, text) {
     wind.webContents.send("motd-set", text);
 };
 
+app.whenReady().then(async _ => {
+    let wind = null; 
 
-
-app.whenReady().then(_ => {
-    let wind = createWindow();
-
-    setTimeout(() => {
-        setMotd(wind, "text")
-    },4000)
+    await axios.get(MOTD_URL)
+        .then(res => {
+            wind = createWindow();
+            if (res.data != "") {
+                setTimeout(() => {
+                    setMotd(wind, res.data);
+                }, 10);
+            };
+        })
+        .catch(err => {
+            wind = createWindow();
+        });
 
     ipcMain.on("button-click", (event, arg) => {
         switch (arg) {
@@ -47,6 +57,7 @@ app.whenReady().then(_ => {
                         };
 
                         let selectedPath = response.filePaths[0]; 
+                        console.log(selectedPath);
                         let targetPath = path.join(selectedPath, "garrysmod");
                         if (!fs.existsSync(targetPath)) {
                             wind.webContents.send("notify", "ERROR:Nie wykryto gry w wybranym folderze.");

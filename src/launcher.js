@@ -7,7 +7,6 @@ const closeButton = document.getElementById("close-button");
 const motd = document.getElementsByClassName("motd-text-container");
 const motdText = document.getElementsByClassName("motd-text-container").textContent;
 
-
 ipcRenderer.on("button-reply", (event, arg) => {
     console.log(arg);
 });
