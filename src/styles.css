@@ -2,57 +2,27 @@
 
 /* THEME */
 :root {
+    --header: rgb(60, 61, 68);
     --primary: rgb(48, 49, 54);
     --background: rgb(27,27,29);
     --secondary: rgb(36, 37, 41);
-    --accent: rgba(52, 152, 219,70%);
+    --accent: rgba(52, 152, 219,50%);
     --text: rgb(255,255,255);
     --text2: rgb(200,200,200)
 }
 
-/* SCROLL SKIN */
-
-/* width */
-::-webkit-scrollbar {
-    width: 12px;
-    
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: var(--background);
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: var(--secondary);
-    border-radius: 12px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--primary);
-  }
 
 /* HEADER */
 #titlebar {
     display: block;
     position: fixed;
     height: 32px;
-    width: calc(100% - 2px); /*Compensate for body 1px border*/
-    background-color:rgb(60, 61, 68);
+    width: 100%;
+    background-color:var(--header);
     color: var(--text);
 }
 
-#titlebar #drag-region {
-  width: calc(1250px - 46px);
-  height: 100%;
-  -webkit-app-region: drag;
-}
-
 #window-controls {
-    display: grid;
-    grid-template-columns: repeat(3, 46px);
     position: absolute;
     top: 0;
     right: 0;
@@ -60,7 +30,6 @@
   }
   
   #window-controls .button {
-    grid-row: 1 / span 1;
     color: var(--text);
     background-color: rgba(0,0,0,0);
     display: flex;
@@ -69,17 +38,24 @@
     cursor: pointer;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 56px;
     height: 100%;
+    font-size: 1.5rem;
+    transition: 0.5s;
   }
 
   #window-controls .button:hover{
-    background-color: rgba(255,255,255,10%);
+    background-color: rgba(234, 32, 39, 80%);
   }
 
-  #close-button {
-    grid-column: 3;
+
+  #titlebar #drag-region {
+    width: calc(100% - 56px);
+    background-color: var(--header);
+    height: 100%;
+    -webkit-app-region: drag;
   }
+  
 
 /* MAIN CODE */
 *, *::before, *::after{
@@ -96,106 +72,92 @@ body{
 }
 
 .content-div{
-    height: calc(750px - 32px);
-    margin-top: 40px;
-    width: 100%;
+    position: relative;
     display: flex;
+    height: calc(100vh - 32px);
+    width: 100%;
+    margin-top: 42px;
+    background-color: var(--background);
     overflow-y: auto;
 }
+
 .launcher-container{
     position: relative;
-    width: 35%;
+    width: 500px;
     height: 100%;
+    background-color: var(--background);
 }
 
 .button-main-container{
     position: absolute;
-    width: 100%;
-    height: 36%;
-    margin: 0;
     bottom: 0;
-    padding: 0;
+    width: 100%;
+    height: 35%;
     background-color: var(--background);
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    justify-content: center;
-    align-items: stretch;
 }
 
 .button-main-container button{
-    margin: 5px 0px 5px 5px;
-    padding: 3px 10px;
+    text-transform: uppercase;
+    background-color: var(--secondary);
+    color: var(--text);
+    margin: 5px 5px 5px 5px;
+    padding: 5px 5px 5px 5px;
+    height: 20%;
+    font-size: 2rem;
+    border-radius: 8px;
     outline: none;
     border: none;
-    border-radius: 6px;
-    background-color: var(--primary);
-    color: var(--text);
-    font-size: 2rem;
-    transition: 0.2s;    
-    text-transform: uppercase;
+    transition: 0.5s;
 }
 
 .button-main-container button:hover{
     background-color: var(--accent);
-    color: white;
+    transition: 0.5s;
     cursor: pointer;
-    transition: 0.2s;
+    
 }
 
-/* IMAGE */
-
-.img-container{
-    position: absolute;
-    width: 96%;
-    height: 66%;
+.logo{
+    position:absolute;
+    height: 64.5%;
+    width: 98%;
+    left: 1.25%;
     top: 0.2%;
-    left: 2.5%;
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-}
-
-.img-container img {
     border-radius: 8px;
-    width: 100%;
-    height: 100%;  
 }
 
-
-/* MOTD */
 
 .motd-main{
-    position: relative;
-    display: none;
-    width: 64%;
-    height: 97%;
-    left: 0.5%;
-    background-color:var(--background);
-    color: var(--text2);
+    width: 748px;
+    background-color: var(--background);
+    height: 98%;
 }
 
 .motd-title{
-    position: absolute;
-    width: 100%;
-    color: var(--text);
-    font-size: 3rem;
-    height: 10%;
-    background-color: var(--primary);
     text-align: center;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    font-size: 2.5rem;
+    background-color: var(--primary);
+    color: var(--text);
+    border-top-left-radius:8px;
+    border-top-right-radius:8px;
+    height: 8%;
 }
 
 .motd-text-container{
-    position: absolute;
-    width: 100%;
-    top: 10%;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    font-size: 1.3rem;
-    padding: 20px 20px;
-    height:90%;
+    color: var(--text2);
+    padding: 10px 10px 5px 10px;
     background-color: var(--secondary);
+    height: 92%;
+    border-bottom-left-radius:8px;
+    border-bottom-right-radius:8px;
 }
 
+
+
+@media (max-width: 500px) {
+    .motd-main{
+        display: none;
+    }
+}

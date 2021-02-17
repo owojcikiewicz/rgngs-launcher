@@ -4,7 +4,7 @@ const fs = require("fs");
 
 function createWindow() {
     const win = new BrowserWindow({
-        width: 437.5,
+        width: 500,
         height: 750,
         frame: false,
         resizable: false,
@@ -22,26 +22,19 @@ function createWindow() {
 };
 
 function setMotd(wind, text) {
+    wind.setSize(1250, 750);
+    wind.center()
     wind.webContents.send("motd-set", text);
 };
 
-function showMotd(wind, bool) {
-    if (bool == true) {
-        wind.setSize(1250, 750);
-        wind.webContents.send("motd-hide", true);
-        return;
-    };
 
-    wind.setSize(500, 750);
-    wind.webContents.send("motd-hide", false); 
-};
 
 app.whenReady().then(_ => {
     let wind = createWindow();
-    
+
     setTimeout(() => {
-        showMotd(wind, true);
-    }, 5000);
+        setMotd(wind, "text")
+    },4000)
 
     ipcMain.on("button-click", (event, arg) => {
         switch (arg) {
