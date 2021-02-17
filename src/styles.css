@@ -167,7 +167,7 @@ body{
 
 .motd-main{
     position: relative;
-    display: flex;
+    display: none;
     width: 64%;
     height: 97%;
     left: 0.5%;

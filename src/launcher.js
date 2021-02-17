@@ -8,7 +8,6 @@ const motdText = document.getElementById("motd-text").textContent;
 const motd = document.getElementsByClassName("motd-text-container");
 const motdMain = document.getElementsByClassName("motd-main");
 
-
 ipcRenderer.on("button-reply", (event, arg) => {
     console.log(arg);
 });
@@ -18,11 +17,7 @@ ipcRenderer.on("motd-set", (event, arg) => {
 });
 
 ipcRenderer.on("motd-hide", (event, arg) => {
-    if (arg) {
-        motdMain[0].style.display = "none";
-    } else {
-        return
-    }
+    motdMain[0].style.display = arg == true ? "flex" : "none";
 });
 
 ipcRenderer.on("notify", (event, message) => {

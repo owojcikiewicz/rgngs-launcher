@@ -4,13 +4,10 @@ const fs = require("fs");
 
 function createWindow() {
     const win = new BrowserWindow({
-        width: 1250,
+        width: 437.5,
         height: 750,
-        minWidth: 1250,
-        minHeight: 750,
-        maxWidth: 1250,
-        maxHeight: 750,
         frame: false,
+        resizable: false,
         icon: path.join(__dirname, "../assets", "icon.png"),
         webPreferences: {
             contextIsolation: false,
@@ -28,17 +25,27 @@ function setMotd(wind, text) {
     wind.webContents.send("motd-set", text);
 };
 
-function hideMotd(wind, bool) {
-    wind.webContents.send("motd-hide", bool); 
+function showMotd(wind, bool) {
+    if (bool == true) {
+        wind.setSize(1250, 750);
+        wind.webContents.send("motd-hide", true);
+        return;
+    };
+
+    wind.setSize(500, 750);
+    wind.webContents.send("motd-hide", false); 
 };
 
 app.whenReady().then(_ => {
     let wind = createWindow();
+    
+    setTimeout(() => {
+        showMotd(wind, true);
+    }, 5000);
 
     ipcMain.on("button-click", (event, arg) => {
         switch (arg) {
             case "download-css":  
-             
                 dialog.showOpenDialog({properties: ["openDirectory"]})
                     .then(response => {
                         if (response.canceled) {
