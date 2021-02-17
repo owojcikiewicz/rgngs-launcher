@@ -3,9 +3,16 @@ const cssButton = document.getElementsByClassName("download-css");
 const downloadButton = document.getElementsByClassName("download-addons");
 const updateButton = document.getElementsByClassName("update-addons");
 const joinButton = document.getElementsByClassName("join-server");
+const closeButton = document.getElementById("close-button");
+const motdText = document.getElementById("motd-text").textContent;
+const motd = document.getElementsByClassName("motd-text-container");
 
-ipcRenderer.on("asynchronous-reply", (event, arg) => {
+ipcRenderer.on("button-reply", (event, arg) => {
     console.log(arg);
+});
+
+ipcRenderer.on("motd-set", (event, arg) => {
+    motd[0].textContent = arg;
 });
 
 ipcRenderer.on("notify", (event, message) => {
@@ -13,24 +20,29 @@ ipcRenderer.on("notify", (event, message) => {
     macOSNotif({
         title: args[0],
         subtitle: args[1],
+        theme: macOSNotifThemes.Dark,
         btn1Text: "OK",
-        btn2Text: null
+        btn2Text: null,
     });
 });
 
 cssButton[0].addEventListener("click", async () => {    
-   ipcRenderer.send("asynchronous-message", "download-css");
+   ipcRenderer.send("button-click", "download-css");
 });
 
 downloadButton[0].addEventListener("click", async () => {
-    ipcRenderer.send("asynchronous-message", "download-addons");
+    ipcRenderer.send("button-click", "download-addons");
 });
 
 updateButton[0].addEventListener("click", async () => {
-   ipcRenderer.send("asynchronous-message", "update-addons");
+   ipcRenderer.send("button-click", "update-addons");
 });
 
 joinButton[0].addEventListener("click", async () => {
-   ipcRenderer.send("asynchronous-message", "join-server");
+   ipcRenderer.send("button-click", "join-server");
+});
+
+closeButton.addEventListener("click", _ => {
+    ipcRenderer.send("close", "");
 });
 

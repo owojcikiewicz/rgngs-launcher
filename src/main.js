@@ -24,10 +24,14 @@ function createWindow() {
     return win;
 };
 
+function setMotd(wind, text) {
+    wind.webContents.send("motd-set", text);
+};
+
 app.whenReady().then(_ => {
     let wind = createWindow();
 
-    ipcMain.on("asynchronous-message", (event, arg) => {
+    ipcMain.on("button-click", (event, arg) => {
         switch (arg) {
             case "download-css": 
                 dialog.showOpenDialog({properties: ["openDirectory"]})
@@ -96,6 +100,10 @@ app.whenReady().then(_ => {
             default: 
                 break;
         };
+    });
+
+    ipcMain.on("close", (event, arg) => {
+        app.quit();
     });
 });
 
