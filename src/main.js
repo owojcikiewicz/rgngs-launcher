@@ -5,11 +5,11 @@ const fs = require("fs");
 function createWindow() {
     const win = new BrowserWindow({
         width: 1250,
-        height: 650,
+        height: 750,
         minWidth: 1250,
-        minHeight: 650,
+        minHeight: 750,
         maxWidth: 1250,
-        maxHeight: 650,
+        maxHeight: 750,
         frame: false,
         icon: path.join(__dirname, "../assets", "icon.png"),
         webPreferences: {
@@ -110,3 +110,4 @@ app.on("activate", () => {
         createWindow();
     };
 });
+
