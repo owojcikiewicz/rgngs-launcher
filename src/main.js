@@ -28,12 +28,17 @@ function setMotd(wind, text) {
     wind.webContents.send("motd-set", text);
 };
 
+function hideMotd(wind, bool) {
+    wind.webContents.send("motd-hide", bool); 
+};
+
 app.whenReady().then(_ => {
     let wind = createWindow();
 
     ipcMain.on("button-click", (event, arg) => {
         switch (arg) {
-            case "download-css": 
+            case "download-css":  
+             
                 dialog.showOpenDialog({properties: ["openDirectory"]})
                     .then(response => {
                         if (response.canceled) {

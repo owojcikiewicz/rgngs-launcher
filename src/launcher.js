@@ -6,6 +6,8 @@ const joinButton = document.getElementsByClassName("join-server");
 const closeButton = document.getElementById("close-button");
 const motdText = document.getElementById("motd-text").textContent;
 const motd = document.getElementsByClassName("motd-text-container");
+const motdMain = document.getElementsByClassName("motd-main");
+
 
 ipcRenderer.on("button-reply", (event, arg) => {
     console.log(arg);
@@ -13,6 +15,14 @@ ipcRenderer.on("button-reply", (event, arg) => {
 
 ipcRenderer.on("motd-set", (event, arg) => {
     motd[0].textContent = arg;
+});
+
+ipcRenderer.on("motd-hide", (event, arg) => {
+    if (arg) {
+        motdMain[0].style.display = "none";
+    } else {
+        return
+    }
 });
 
 ipcRenderer.on("notify", (event, message) => {
