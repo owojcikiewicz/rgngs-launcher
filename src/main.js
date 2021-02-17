@@ -1,9 +1,10 @@
-const {app, ipcMain, dialog, BrowserWindow} = require("electron");
+const {app, ipcMain, dialog, shell, BrowserWindow} = require("electron");
 const path = require("path");
 const fs = require("fs");
 const axios = require("axios").default;
 
 const MOTD_URL = "https://pastebin.com/raw/AJgTaRdq";
+const SERVER_IP = "192.0.2.1:27015";
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -33,7 +34,7 @@ function setMotd(wind, text) {
 app.whenReady().then(async _ => {
     let wind = null; 
 
-    await axios.get(MOTD_URL)
+    await axios.get(":loosdoa")
         .then(res => {
             wind = createWindow();
             if (res.data != "") {
@@ -43,74 +44,101 @@ app.whenReady().then(async _ => {
             };
         })
         .catch(err => {
+            console.log(`[ERROR] ${err}`);
             wind = createWindow();
         });
 
     ipcMain.on("button-click", (event, arg) => {
+        let basePath = "C:\Program Files (x86)\Steam\steamapps\common\GarrysMod";
+        let baseGmodPath = path.join(basePath, "garrysmod");
+
         switch (arg) {
             case "download-css":  
-                dialog.showOpenDialog({properties: ["openDirectory"]})
-                    .then(response => {
-                        if (response.canceled) {
-                            wind.webContents.send("notify", "ERROR:Nie wybrano foldera.");
-                            return;
-                        };
+                if (fs.existsSync(baseGmodPath)) {
+                    // @TODO: PROCEED TO DOWNLOAD.
+                    return;
+                };
 
-                        let selectedPath = response.filePaths[0]; 
-                        console.log(selectedPath);
-                        let targetPath = path.join(selectedPath, "garrysmod");
-                        if (!fs.existsSync(targetPath)) {
-                            wind.webContents.send("notify", "ERROR:Nie wykryto gry w wybranym folderze.");
-                            return;
-                        };
+                wind.webContents.send("notify", "ERROR:Wybierz folder instalacji Garry's Moda.");
+                setTimeout(() => {
+                    dialog.showOpenDialog({properties: ["openDirectory"]})
+                        .then(response => {
+                            if (response.canceled) {
+                                wind.webContents.send("notify", "ERROR:Nie wybrano foldera.");
+                                return;
+                            };
 
-                        // @TODO: DOWNLOAD CSS CONTENT.
-                    })
-                    .catch(console.error);
+                            let selectedPath = response.filePaths[0]; 
+                            let targetPath = path.join(selectedPath, "garrysmod");
+                            if (!fs.existsSync(targetPath)) {
+                                wind.webContents.send("notify", "ERROR:Nie wykryto gry w wybranym folderze.");
+                                return;
+                            };
+
+                            // @TODO: DOWNLOAD CSS CONTENT.
+                        })
+                        .catch(console.error);
+                }, 3000);
                 break;
-
+        
             case "download-addons": 
-                dialog.showOpenDialog({properties: ["openDirectory"]})
-                    .then(response => {
-                        if (response.canceled) {
-                            wind.webContents.send("notify", "ERROR:Nie wybrano foldera.");
-                            return;
-                        };
+                if (fs.existsSync(baseGmodPath)) {
+                    // @TODO: PROCEED TO DOWNLOAD.
+                    return;
+                };
 
-                        let selectedPath = response.filePaths[0]; 
-                        let targetPath = path.join(selectedPath, "garrysmod");
-                        if (!fs.existsSync(targetPath)) {
-                            wind.webContents.send("notify", "ERROR:Nie wykryto gry w wybranym folderze.");
-                            return;
-                        };
+                wind.webContents.send("notify", "ERROR:Wybierz folder instalacji Garry's Moda.");
+                setTimeout(() => { 
+                    dialog.showOpenDialog({properties: ["openDirectory"]})
+                        .then(response => {
+                            if (response.canceled) {
+                                wind.webContents.send("notify", "ERROR:Nie wybrano foldera.");
+                                return;
+                            };
 
-                        // @TODO: DOWNLOAD ADDONS.
-                    })
-                    .catch(console.error);
+                            let selectedPath = response.filePaths[0]; 
+                            let targetPath = path.join(selectedPath, "garrysmod");
+                            if (!fs.existsSync(targetPath)) {
+                                wind.webContents.send("notify", "ERROR:Nie wykryto gry w wybranym folderze.");
+                                return;
+                            };
+
+                            // @TODO: DOWNLOAD ADDONS.
+                        })
+                        .catch(console.error);
+                }, 3000)
                 break;
 
             case "update-addons": 
-                dialog.showOpenDialog({properties: ["openDirectory"]})
-                    .then(response => {
-                        if (response.canceled) {
-                            wind.webContents.send("notify", "ERROR:Nie wybrano foldera.");
-                            return;
-                        };
+                if (fs.existsSync(baseGmodPath)) {
+                    // @TODO: PROCEED TO DOWNLOAD.
+                    return;
+                };
 
-                        let selectedPath = response.filePaths[0]; 
-                        let targetPath = path.join(selectedPath, "garrysmod");
-                        if (!fs.existsSync(targetPath)) {
-                            wind.webContents.send("notify", "ERROR:Nie wykryto gry w wybranym folderze.");
-                            return;
-                        };
+                wind.webContents.send("notify", "ERROR:Wybierz folder instalacji Garry's Moda.");
+                setTimeout(() => { 
+                    dialog.showOpenDialog({properties: ["openDirectory"]})
+                        .then(response => {
+                            if (response.canceled) {
+                                wind.webContents.send("notify", "ERROR:Nie wybrano foldera.");
+                                return;
+                            };
 
-                        // @TODO: UPDATE ADDONS.
-                    })
-                    .catch(console.error);
+                            let selectedPath = response.filePaths[0]; 
+                            let targetPath = path.join(selectedPath, "garrysmod");
+                            if (!fs.existsSync(targetPath)) {
+                                wind.webContents.send("notify", "ERROR:Nie wykryto gry w wybranym folderze.");
+                                return;
+                            };
+
+                            // @TODO: UPDATE ADDONS.
+                        })
+                        .catch(console.error);
+                }, 3000)
                 break;
 
             case "join-server": 
-                // @TODO: CONNECT TO SERVER.
+                shell.openExternal(`steam://connect/${SERVER_IP}`);
                 break;
 
             default: 
