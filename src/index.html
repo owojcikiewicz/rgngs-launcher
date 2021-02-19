@@ -11,10 +11,11 @@
     <div class="content-div"> 
       <div class="launcher-container">
           <div class="button-main-container">
-              <button class="download-css">pobierz cs source</button>
-              <button class="download-addons">pobierz paczkę</button>
-              <button class="update-addons">aktualizuj paczkę</button>
-              <button class="join-server">dołącz na serwer</button>
+                    <button class="download-css" id="CSS-button">Pobierz css</button>
+                    <button class="download-addons" id="Addons-button" >pobierz paczkę </button>
+                    <button class="update-addons" id="Update-button">aktualizuj paczkę</button>
+                    <button class="join-server">dołącz na serwer</button>
+                 
           </div>
           <img class="logo" src="../assets/icon.png">
       </div>
@@ -23,6 +24,7 @@
           <div class="motd-text-container" id="motd-text"> 
               MOTD
           </div>
+          <div class="progress-bar" id="cssprogres" style="--width: 10" >Pobieranie</div> 
       </div>
     </div>
     <header id="titlebar">

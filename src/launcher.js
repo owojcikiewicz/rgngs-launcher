@@ -6,6 +6,8 @@ const joinButton = document.getElementsByClassName("join-server");
 const closeButton = document.getElementById("close-button");
 const motd = document.getElementsByClassName("motd-text-container");
 const motdText = document.getElementsByClassName("motd-text-container").textContent;
+const progressBarText = document.getElementsByClassName("progress-bar").innerHTML;
+
 
 ipcRenderer.on("button-reply", (event, arg) => {
     console.log(arg);
@@ -20,7 +22,7 @@ ipcRenderer.on("notify", (event, message) => {
     macOSNotif({
         title: args[0],
         subtitle: args[1],
-        theme: macOSNotifThemes.Dark,
+        theme: macOSNotifThemes.Light,
         btn1Text: "OK",
         btn2Text: null,
     });
@@ -46,3 +48,15 @@ closeButton.addEventListener("click", _ => {
     ipcRenderer.send("close", "");
 });
 
+
+
+function progressBarInit(strText){
+    const progressBar = document.getElementById("cssprogres")
+    progressBar.innerHTML = strText;
+    setInterval(() => {
+        const computedStyle = getComputedStyle(progressBar)
+        const width = parseFloat(computedStyle.getPropertyValue('--width')) || 0
+        progressBar.style.setProperty('--width', width + .1)
+      }, 5)
+}
+      progressBarInit("Pobieranie CSS")

@@ -149,7 +149,7 @@ body{
     color: var(--text2);
     padding: 10px 10px 5px 10px;
     background-color: var(--secondary);
-    height: 92%;
+    height: calc(92% - 33px);
     border-bottom-left-radius:8px;
     border-bottom-right-radius:8px;
 }
@@ -161,3 +161,35 @@ body{
         display: none;
     }
 }
+
+/* PROGRESS BAR */
+
+.progress-bar {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    margin-top: 3px;
+    height: 30px;
+    background-color:var(--secondary);
+    border-radius: 8px;
+    color: var(--text);
+    font-size:16px;
+}
+
+
+.progress-bar::before {
+    position: absolute;
+    display: flex;
+    content: attr(data-label);
+    height: 30%;
+    min-width: 2rem;
+    max-width: calc(100% - 0.5em);
+    left: 0.25em;
+    bottom: 1px;
+    text-align: center;
+    align-items: center;
+    width: calc(var(--width, 0) * 1%);
+    background-color: var(--accent);
+    
+}  
