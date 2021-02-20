@@ -1,4 +1,5 @@
 const {app, ipcMain, dialog, shell, BrowserWindow} = require("electron");
+const {download} = require("electron-dl");
 const path = require("path");
 const fs = require("fs");
 const axios = require("axios").default;
@@ -6,8 +7,9 @@ const axios = require("axios").default;
 const MOTD_URL = "https://pastebin.com/raw/AJgTaRdq";
 const SERVER_IP = "192.0.2.1:27015";
 const DOWNLOAD_URLS = {
-    "css": "",
-    "content": ""
+    "css": "https://github.com/processing/processing/archive/master.zip",
+    "content": "",
+    "update": ""
 };
 
 function createWindow() {
@@ -33,6 +35,22 @@ function setMotd(wind, text) {
     wind.setSize(1250, 750);
     wind.center();
     wind.webContents.send("motd-set", text);
+};
+
+async function downloadItem(wind, item, directory, onStarted, onProgress, onCancel) {
+    if (!wind || !DOWNLOAD_URLS[item]) return;
+
+    let url = DOWNLOAD_URLS[item];
+
+    await download(wind, url, {directory: directory, onStarted: onStarted, onProgress: onProgress, onCancel: onCancel});
+};
+
+function progressBar(wind, text, value) {
+    wind.webContents.send("progress-bar", [text, value]);
+};
+
+function progressBarHide(wind) {
+    wind.webContents.send("progress-bar-hide");
 };
 
 app.whenReady().then(async _ => {
@@ -64,7 +82,27 @@ app.whenReady().then(async _ => {
         switch (arg) {
             case "download-css":  
                 if (fs.existsSync(baseGmodPath)) {
-                    // @TODO: PROCEED TO DOWNLOAD.
+                    downloadItem(wind, "css", baseGmodPath, 
+                        (item) => {
+                            progressBar(wind, "POBIERANIE CSS", 1);
+
+                            item.once("done", (event, state) => {
+                                if (state == "completed") {
+                                    wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
+                                    progressBarHide(wind);
+                                    return;
+                                };
+                            });
+                        }, 
+                        (progress) => {
+                            progressBar(wind, "POBIERANIE CSS", progress.percent * 100);
+                        }, 
+                        (item) => {
+                            progressBarHide(wind);
+                            wind.webContents.send("notify", "UWAGA:Pobieranie zostało zanulowane.");
+                        }
+                    );
+
                     return;
                 };
 
@@ -84,7 +122,26 @@ app.whenReady().then(async _ => {
                                 return;
                             };
 
-                            // @TODO: DOWNLOAD CSS CONTENT.
+                            downloadItem(wind, "css", targetPath, 
+                                (item) => {
+                                    progressBar(wind, "POBIERANIE CSS", 1);
+        
+                                    item.once("done", (event, state) => {
+                                        if (state == "completed") {
+                                            wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
+                                            progressBarHide(wind);
+                                            return;
+                                        };
+                                    });
+                                }, 
+                                (progress) => {
+                                    progressBar(wind, "POBIERANIE CSS", progress.percent * 100);
+                                }, 
+                                (item) => {
+                                    progressBarHide(wind);
+                                    wind.webContents.send("notify", "UWAGA:Pobieranie zostało zanulowane.");
+                                }
+                            );
                         })
                         .catch(console.error);
                 }, 3000);
@@ -92,7 +149,26 @@ app.whenReady().then(async _ => {
         
             case "download-addons": 
                 if (fs.existsSync(baseGmodPath)) {
-                    // @TODO: PROCEED TO DOWNLOAD.
+                    downloadItem(wind, "content", baseGmodPath, 
+                        (item) => {
+                            progressBar(wind, "POBIERANIE PACZKI", 1);
+
+                            item.once("done", (event, state) => {
+                                if (state == "completed") {
+                                    wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
+                                    progressBarHide(wind);
+                                    return;
+                                };
+                            });
+                        }, 
+                        (progress) => {
+                            progressBar(wind, "POBIERANIE PACZKI", progress.percent * 100);
+                        }, 
+                        (item) => {
+                            progressBarHide(wind);
+                            wind.webContents.send("notify", "UWAGA:Pobieranie zostało zanulowane.");
+                        }
+                    );
                     return;
                 };
 
@@ -112,7 +188,26 @@ app.whenReady().then(async _ => {
                                 return;
                             };
 
-                            // @TODO: DOWNLOAD ADDONS.
+                            downloadItem(wind, "content", targetPath, 
+                                (item) => {
+                                    progressBar(wind, "POBIERANIE PACZKI", 1);
+        
+                                    item.once("done", (event, state) => {
+                                        if (state == "completed") {
+                                            wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
+                                            progressBarHide(wind);
+                                            return;
+                                        };
+                                    });
+                                }, 
+                                (progress) => {
+                                    progressBar(wind, "POBIERANIE PACZKI", progress.percent * 100);
+                                }, 
+                                (item) => {
+                                    progressBarHide(wind);
+                                    wind.webContents.send("notify", "UWAGA:Pobieranie zostało zanulowane.");
+                                }
+                            );
                         })
                         .catch(console.error);
                 }, 3000)
@@ -120,7 +215,26 @@ app.whenReady().then(async _ => {
 
             case "update-addons": 
                 if (fs.existsSync(baseGmodPath)) {
-                    // @TODO: PROCEED TO DOWNLOAD.
+                    downloadItem(wind, "update", baseGmodPath, 
+                        (item) => {
+                            progressBar(wind, "AKTUALIZOWANIE PACZKI", 1);
+
+                            item.once("done", (event, state) => {
+                                if (state == "completed") {
+                                    wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
+                                    progressBarHide(wind);
+                                    return;
+                                };
+                            });
+                        }, 
+                        (progress) => {
+                            progressBar(wind, "AKTUALIZOWANIE PACZKI", progress.percent * 100);
+                        }, 
+                        (item) => {
+                            progressBarHide(wind);
+                            wind.webContents.send("notify", "UWAGA:Pobieranie zostało zanulowane.");
+                        }
+                    );
                     return;
                 };
 
@@ -140,7 +254,26 @@ app.whenReady().then(async _ => {
                                 return;
                             };
 
-                            // @TODO: UPDATE ADDONS.
+                            downloadItem(wind, "update", targetPath, 
+                                (item) => {
+                                    progressBar(wind, "AKTUALIZOWANIE PACZKI", 1);
+
+                                    item.once("done", (event, state) => {
+                                        if (state == "completed") {
+                                            wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
+                                            progressBarHide(wind);
+                                            return;
+                                        };
+                                    });
+                                }, 
+                                (progress) => {
+                                    progressBar(wind, "AKTUALIZOWANIE PACZKI", progress.percent * 100);
+                                }, 
+                                (item) => {
+                                    progressBarHide(wind);
+                                    wind.webContents.send("notify", "UWAGA:Pobieranie zostało zanulowane.");
+                                }
+                            );
                         })
                         .catch(console.error);
                 }, 3000)
