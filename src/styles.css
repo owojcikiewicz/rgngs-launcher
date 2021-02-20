@@ -163,11 +163,12 @@ body{
     position: absolute;
     display: none;
     width: 98%;
+    padding: 0px 5px 5px 5px;
     left: 1%;
     text-align: center;
     align-items: center;
     margin-top: 3px;
-    height: 25px;
+    height: 28px;
     background-color:var(--secondary);
     border-radius: 8px;
     color: var(--text);
