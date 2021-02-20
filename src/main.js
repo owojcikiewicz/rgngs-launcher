@@ -96,6 +96,7 @@ app.whenReady().then(async _ => {
                             item.once("done", (event, state) => {
                                 if (state == "completed") {
                                     wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
+                                    unzip(item.savePath, targetPath);
                                     progressBarHide(wind);
                                     return;
                                 };
@@ -165,6 +166,7 @@ app.whenReady().then(async _ => {
                             item.once("done", (event, state) => {
                                 if (state == "completed") {
                                     wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
+                                    unzip(item.savePath, targetPath);
                                     progressBarHide(wind);
                                     return;
                                 };
@@ -205,6 +207,7 @@ app.whenReady().then(async _ => {
                                     item.once("done", (event, state) => {
                                         if (state == "completed") {
                                             wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
+                                            unzip(item.savePath, targetPath);
                                             progressBarHide(wind);
                                             return;
                                         };
@@ -232,6 +235,7 @@ app.whenReady().then(async _ => {
                             item.once("done", (event, state) => {
                                 if (state == "completed") {
                                     wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
+                                    unzip(item.savePath, targetPath);
                                     progressBarHide(wind);
                                     return;
                                 };
@@ -272,6 +276,7 @@ app.whenReady().then(async _ => {
                                     item.once("done", (event, state) => {
                                         if (state == "completed") {
                                             wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
+                                            unzip(item.savePath, targetPath);
                                             progressBarHide(wind);
                                             return;
                                         };
