@@ -50,7 +50,7 @@ closeButton.addEventListener("click", _ => {
 });
 
 function progressBarInit(text, value) {
-    let progressBar = document.getElementById("cssprogres");
+    let progressBar = document.getElementById("progress");
     progressBar.innerHTML = text;
     progressBar.style.display = "block";
     document.getElementsByClassName("button-main-container")[0].style.height = "calc(35% - 36px)";
@@ -59,25 +59,30 @@ function progressBarInit(text, value) {
     document.getElementsByClassName("update-addons")[0].style.padding = "0px 0px 0px 0px";
     document.getElementsByClassName("join-server")[0].style.padding = "0px 0px 0px 0px";
  
-    progressBar.style.setProperty("--width", value ? value : 1);
+    progressBar.style.setProperty("--width", value ? value : 0);
 
     return progressBar;
 };
 
-let bar = progressBarInit("POBIERANIE PACZKI");
-bar.style.setProperty("--width", 20);
-
-function progressBarHide(){
-    let progressBar = document.getElementById("cssprogres");
+function progressBarHide() {
+    let progressBar = document.getElementById("progress");
     progressBar.style.display = "none";
     document.getElementsByClassName("button-main-container")[0].style.height = "35%";
     document.getElementsByClassName("download-css")[0].style.padding = "5px 5px 5px 5px";
     document.getElementsByClassName("download-addons")[0].style.padding = "5px 5px 5px 5px";
     document.getElementsByClassName("update-addons")[0].style.padding = "5px 5px 5px 5px";
     document.getElementsByClassName("join-server")[0].style.padding = "5px 5px 5px 5px";
-}
-setTimeout(function(){ progressBarHide(); }, 3000);
+};
 
+let bar = null;
+ipcRenderer.on("progress-bar", (event, message) => {
+    if (!bar) {
+        bar = progressBarInit(message[0]);
+    };
 
+    bar.style.setProperty("--width", message[1]);
+});
 
-
+ipcRenderer.on("progress-bar-hide", (event, message) => {
+    progressBarHide();
+});

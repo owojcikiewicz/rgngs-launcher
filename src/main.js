@@ -135,6 +135,7 @@ app.whenReady().then(async _ => {
                                     });
                                 }, 
                                 (progress) => {
+                                    console.log(progress.percent);
                                     progressBar(wind, "POBIERANIE CSS", progress.percent * 100);
                                 }, 
                                 (item) => {
