@@ -8,6 +8,8 @@ const motd = document.getElementsByClassName("motd-text-container");
 const motdText = document.getElementsByClassName("motd-text-container").textContent;
 const progressBarText = document.getElementsByClassName("progress-bar").innerHTML;
 
+ipcRenderer.send("motd-init");
+
 ipcRenderer.on("button-reply", (event, arg) => {
     console.log(arg);
 });

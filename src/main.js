@@ -5,6 +5,10 @@ const axios = require("axios").default;
 
 const MOTD_URL = "https://pastebin.com/raw/AJgTaRdq";
 const SERVER_IP = "192.0.2.1:27015";
+const DOWNLOAD_URLS = {
+    "css": "",
+    "content": ""
+};
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -27,26 +31,31 @@ function createWindow() {
 
 function setMotd(wind, text) {
     wind.setSize(1250, 750);
-    wind.center()
+    wind.center();
     wind.webContents.send("motd-set", text);
 };
 
 app.whenReady().then(async _ => {
     let wind = null; 
+    let motd = "";
 
-    await axios.get(":loosdoa")
+    await axios.get(MOTD_URL)
         .then(res => {
             wind = createWindow();
             if (res.data != "") {
-                setTimeout(() => {
-                    setMotd(wind, res.data);
-                }, 10);
+                motd = res.data;
             };
         })
         .catch(err => {
             console.log(`[ERROR] ${err}`);
             wind = createWindow();
         });
+
+    ipcMain.on("motd-init", () => {
+        if (!wind || motd == "") return;
+        
+        setMotd(wind, motd);
+    });
 
     ipcMain.on("button-click", (event, arg) => {
         let basePath = "C:\Program Files (x86)\Steam\steamapps\common\GarrysMod";
