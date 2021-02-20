@@ -66,3 +66,18 @@ function progressBarInit(text, value) {
 
 let bar = progressBarInit("POBIERANIE PACZKI");
 bar.style.setProperty("--width", 20);
+
+function progressBarHide(){
+    let progressBar = document.getElementById("cssprogres");
+    progressBar.style.display = "none";
+    document.getElementsByClassName("button-main-container")[0].style.height = "35%";
+    document.getElementsByClassName("download-css")[0].style.padding = "5px 5px 5px 5px";
+    document.getElementsByClassName("download-addons")[0].style.padding = "5px 5px 5px 5px";
+    document.getElementsByClassName("update-addons")[0].style.padding = "5px 5px 5px 5px";
+    document.getElementsByClassName("join-server")[0].style.padding = "5px 5px 5px 5px";
+}
+setTimeout(function(){ progressBarHide(); }, 3000);
+
+
+
+
