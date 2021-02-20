@@ -3,13 +3,14 @@ const {download} = require("electron-dl");
 const path = require("path");
 const fs = require("fs");
 const axios = require("axios").default;
+const AdmZip = require("adm-zip");
 
 const MOTD_URL = "https://pastebin.com/raw/AJgTaRdq";
 const SERVER_IP = "192.0.2.1:27015";
 const DOWNLOAD_URLS = {
     "css": "https://github.com/processing/processing/archive/master.zip",
-    "content": "",
-    "update": ""
+    "content": "https://github.com/processing/processing/archive/master.zip",
+    "update": "https://github.com/processing/processing/archive/master.zip"
 };
 
 function createWindow() {
@@ -53,6 +54,12 @@ function progressBarHide(wind) {
     wind.webContents.send("progress-bar-hide");
 };
 
+async function unzip(path, location) {
+    let zip = new AdmZip(path);
+
+    await zip.extractAllTo(location);
+};
+
 app.whenReady().then(async _ => {
     let wind = null; 
     let motd = "";
@@ -76,8 +83,8 @@ app.whenReady().then(async _ => {
     });
 
     ipcMain.on("button-click", (event, arg) => {
-        let basePath = "C:\Program Files (x86)\Steam\steamapps\common\GarrysMod";
-        let baseGmodPath = path.join(basePath, "garrysmod");
+        let basePath = "C:\Program Files (x86)\Steam\steamapps\common\GarrysMod\garrysmod";
+        let baseGmodPath = path.join(basePath, "addons");
 
         switch (arg) {
             case "download-css":  
@@ -116,7 +123,8 @@ app.whenReady().then(async _ => {
                             };
 
                             let selectedPath = response.filePaths[0]; 
-                            let targetPath = path.join(selectedPath, "garrysmod");
+                            let gmodPath = path.join(selectedPath, "garrysmod");
+                            let targetPath = path.join(gmodPath, "addons");
                             if (!fs.existsSync(targetPath)) {
                                 wind.webContents.send("notify", "ERROR:Nie wykryto gry w wybranym folderze.");
                                 return;
@@ -129,13 +137,13 @@ app.whenReady().then(async _ => {
                                     item.once("done", (event, state) => {
                                         if (state == "completed") {
                                             wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
+                                            unzip(item.savePath, targetPath);
                                             progressBarHide(wind);
                                             return;
                                         };
                                     });
                                 }, 
                                 (progress) => {
-                                    console.log(progress.percent);
                                     progressBar(wind, "POBIERANIE CSS", progress.percent * 100);
                                 }, 
                                 (item) => {
@@ -183,7 +191,8 @@ app.whenReady().then(async _ => {
                             };
 
                             let selectedPath = response.filePaths[0]; 
-                            let targetPath = path.join(selectedPath, "garrysmod");
+                            let gmodPath = path.join(selectedPath, "garrysmod");
+                            let targetPath = path.join(gmodPath, "addons");
                             if (!fs.existsSync(targetPath)) {
                                 wind.webContents.send("notify", "ERROR:Nie wykryto gry w wybranym folderze.");
                                 return;
@@ -249,7 +258,8 @@ app.whenReady().then(async _ => {
                             };
 
                             let selectedPath = response.filePaths[0]; 
-                            let targetPath = path.join(selectedPath, "garrysmod");
+                            let gmodPath = path.join(selectedPath, "garrysmod");
+                            let targetPath = path.join(gmodPath, "addons");
                             if (!fs.existsSync(targetPath)) {
                                 wind.webContents.send("notify", "ERROR:Nie wykryto gry w wybranym folderze.");
                                 return;
