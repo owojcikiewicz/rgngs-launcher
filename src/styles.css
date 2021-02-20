@@ -189,7 +189,6 @@ body{
     align-items: center;
     width: calc(var(--width, 0) * 1%);
     background-color: var(--accent);
-    
 }  
 
 @media (max-width: 500px) {

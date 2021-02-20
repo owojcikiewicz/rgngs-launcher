@@ -8,7 +8,6 @@ const motd = document.getElementsByClassName("motd-text-container");
 const motdText = document.getElementsByClassName("motd-text-container").textContent;
 const progressBarText = document.getElementsByClassName("progress-bar").innerHTML;
 
-
 ipcRenderer.on("button-reply", (event, arg) => {
     console.log(arg);
 });
@@ -48,11 +47,9 @@ closeButton.addEventListener("click", _ => {
     ipcRenderer.send("close", "");
 });
 
-
-
-function progressBarInit(strText){
-    const progressBar = document.getElementById("cssprogres")
-    progressBar.innerHTML = strText;
+function progressBarInit(text, value) {
+    let progressBar = document.getElementById("cssprogres");
+    progressBar.innerHTML = text;
     progressBar.style.display = "block";
     document.getElementsByClassName("button-main-container")[0].style.height = "calc(35% - 36px)";
     document.getElementsByClassName("download-css")[0].style.padding = "0px 0px 0px 0px";
@@ -60,11 +57,10 @@ function progressBarInit(strText){
     document.getElementsByClassName("update-addons")[0].style.padding = "0px 0px 0px 0px";
     document.getElementsByClassName("join-server")[0].style.padding = "0px 0px 0px 0px";
  
+    progressBar.style.setProperty("--width", value ? value : 1);
 
-    setInterval(() => {
-        const computedStyle = getComputedStyle(progressBar)
-        const width = parseFloat(computedStyle.getPropertyValue('--width')) || 0
-        progressBar.style.setProperty('--width', width + .1)
-      }, 5)
-}
-     // progressBarInit("Pobieranie CSS")
+    return progressBar;
+};
+
+let bar = progressBarInit("POBIERANIE PACZKI");
+bar.style.setProperty("--width", 20);

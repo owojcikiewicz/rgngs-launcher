@@ -8,7 +8,7 @@ const SERVER_IP = "192.0.2.1:27015";
 
 function createWindow() {
     const win = new BrowserWindow({
-        width: 1250,
+        width: 500,
         height: 750,
         frame: false,
         resizable: false,
