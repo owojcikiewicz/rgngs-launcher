@@ -22,7 +22,6 @@
   "dependencies": {
     "adm-zip": "^0.5.3",
     "axios": "^0.21.1",
-    "custom-electron-titlebar": "^3.2.6",
     "electron-dl": "^3.1.0"
   }
 }
