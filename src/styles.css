@@ -90,8 +90,8 @@ body{
 
 .button-main-container{
     position: absolute;
-    bottom: 0;
     width: 100%;
+    top: 64.5%;
     height: 35%;
     background-color: var(--background);
     display: flex;
@@ -100,12 +100,14 @@ body{
 
 .button-main-container button{
     text-transform: uppercase;
+    align-items: center;
+    text-align: center;
     background-color: var(--secondary);
     color: var(--text);
     margin: 5px 5px 5px 5px;
     padding: 5px 5px 5px 5px;
     height: 20%;
-    font-size: 2rem;
+    font-size: 2em;
     border-radius: 8px;
     outline: none;
     border: none;
@@ -149,32 +151,28 @@ body{
     color: var(--text2);
     padding: 10px 10px 5px 10px;
     background-color: var(--secondary);
-    height: calc(92% - 33px);
+    height:92%;
     border-bottom-left-radius:8px;
     border-bottom-right-radius:8px;
 }
 
 
-
-@media (max-width: 500px) {
-    .motd-main{
-        display: none;
-    }
-}
-
 /* PROGRESS BAR */
 
 .progress-bar {
-    position: relative;
-    width: 100%;
+    position: absolute;
+    display: none;
+    width: 98%;
+    left: 1%;
     text-align: center;
     align-items: center;
     margin-top: 3px;
-    height: 30px;
+    height: 25px;
     background-color:var(--secondary);
     border-radius: 8px;
     color: var(--text);
     font-size:16px;
+    bottom: 15px;
 }
 
 
@@ -193,3 +191,9 @@ body{
     background-color: var(--accent);
     
 }  
+
+@media (max-width: 500px) {
+    .motd-main{
+        display: none;
+    }
+}

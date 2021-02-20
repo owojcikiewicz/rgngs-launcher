@@ -53,10 +53,18 @@ closeButton.addEventListener("click", _ => {
 function progressBarInit(strText){
     const progressBar = document.getElementById("cssprogres")
     progressBar.innerHTML = strText;
+    progressBar.style.display = "block";
+    document.getElementsByClassName("button-main-container")[0].style.height = "calc(35% - 36px)";
+    document.getElementsByClassName("download-css")[0].style.padding = "0px 0px 0px 0px";
+    document.getElementsByClassName("download-addons")[0].style.padding = "0px 0px 0px 0px";
+    document.getElementsByClassName("update-addons")[0].style.padding = "0px 0px 0px 0px";
+    document.getElementsByClassName("join-server")[0].style.padding = "0px 0px 0px 0px";
+ 
+
     setInterval(() => {
         const computedStyle = getComputedStyle(progressBar)
         const width = parseFloat(computedStyle.getPropertyValue('--width')) || 0
         progressBar.style.setProperty('--width', width + .1)
       }, 5)
 }
-      progressBarInit("Pobieranie CSS")
+     // progressBarInit("Pobieranie CSS")
