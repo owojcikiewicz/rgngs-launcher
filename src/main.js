@@ -5,7 +5,7 @@ const fs = require("fs");
 const axios = require("axios").default;
 const AdmZip = require("adm-zip");
 
-const MOTD_URL = "https://pastebin.com/raw/AJgTaRdq";
+const MOTD_URL = "https://sssssssssssspastebin.com/raw/AJgTaRdq";
 const SERVER_IP = "192.0.2.1:27015";
 const DOWNLOAD_URLS = {
     "css": "https://github.com/processing/processing/archive/master.zip",
@@ -55,9 +55,17 @@ function progressBarHide(wind) {
 };
 
 async function unzip(path, location) {
-    let zip = new AdmZip(path);
+    return new Promise(async (resolve, reject) => {
+        let zip = new AdmZip(path);
 
-    await zip.extractAllTo(location);
+        try {
+            zip.extractAllTo(location);
+            resolve();
+        }
+        catch (ex) {
+            reject(ex);
+        };
+    });
 };
 
 app.whenReady().then(async _ => {
@@ -95,8 +103,10 @@ app.whenReady().then(async _ => {
 
                             item.once("done", (event, state) => {
                                 if (state == "completed") {
-                                    wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
-                                    unzip(item.savePath, targetPath);
+                                    unzip(item.savePath, targetPath)        
+                                        .then(_ => {
+                                            wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
+                                        });
                                     progressBarHide(wind);
                                     return;
                                 };
@@ -137,8 +147,10 @@ app.whenReady().then(async _ => {
         
                                     item.once("done", (event, state) => {
                                         if (state == "completed") {
-                                            wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
-                                            unzip(item.savePath, targetPath);
+                                            unzip(item.savePath, targetPath)        
+                                                .then(_ => {
+                                                    wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
+                                                });
                                             progressBarHide(wind);
                                             return;
                                         };
@@ -165,8 +177,10 @@ app.whenReady().then(async _ => {
 
                             item.once("done", (event, state) => {
                                 if (state == "completed") {
-                                    wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
-                                    unzip(item.savePath, targetPath);
+                                    unzip(item.savePath, targetPath)        
+                                        .then(_ => {
+                                            wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
+                                        });
                                     progressBarHide(wind);
                                     return;
                                 };
@@ -206,8 +220,10 @@ app.whenReady().then(async _ => {
         
                                     item.once("done", (event, state) => {
                                         if (state == "completed") {
-                                            wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
-                                            unzip(item.savePath, targetPath);
+                                            unzip(item.savePath, targetPath)        
+                                                .then(_ => {
+                                                    wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
+                                                });
                                             progressBarHide(wind);
                                             return;
                                         };
@@ -234,8 +250,10 @@ app.whenReady().then(async _ => {
 
                             item.once("done", (event, state) => {
                                 if (state == "completed") {
-                                    wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
-                                    unzip(item.savePath, targetPath);
+                                    unzip(item.savePath, targetPath)        
+                                        .then(_ => {
+                                            wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
+                                        });
                                     progressBarHide(wind);
                                     return;
                                 };
@@ -275,8 +293,10 @@ app.whenReady().then(async _ => {
 
                                     item.once("done", (event, state) => {
                                         if (state == "completed") {
-                                            wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
-                                            unzip(item.savePath, targetPath);
+                                            unzip(item.savePath, targetPath)        
+                                                .then(_ => {
+                                                    wind.webContents.send("notify", "UWAGA:Pobieranie zostało zakończone.");
+                                                });
                                             progressBarHide(wind);
                                             return;
                                         };
