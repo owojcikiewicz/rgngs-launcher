@@ -76,7 +76,7 @@ function progressBarHide() {
 
 let bar = null;
 ipcRenderer.on("progress-bar", (event, message) => {
-    if (!bar) {
+    if (!bar || bar.style.display == "none") {
         bar = progressBarInit(message[0]);
     };
 
