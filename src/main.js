@@ -8,7 +8,7 @@ const AdmZip = require("adm-zip");
 const MOTD_URL = "https://sssssssssssspastebin.com/raw/AJgTaRdq";
 const SERVER_IP = "192.0.2.1:27015";
 const DOWNLOAD_URLS = {
-    "css": "https://github.com/processing/processing/archive/master.zip",
+    "css": "https://github.com/RGNGS/css-content/archive/master.zip",
     "content": "https://github.com/processing/processing/archive/master.zip",
     "update": "https://github.com/processing/processing/archive/master.zip"
 };
