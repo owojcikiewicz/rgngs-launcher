@@ -1,4 +1,4 @@
-### RGngs Laumcher
+### RGngs Launcher
 This project was started with the intention of creating an easy way to download server content for a now-defunct gaming community. It's built using the Electron framework with a few additional packages. 
 
 ### Installation 
